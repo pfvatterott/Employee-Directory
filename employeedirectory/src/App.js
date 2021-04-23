@@ -6,6 +6,7 @@ import Wrapper from "./components/Wrapper";
 import Row from "./components/Row";
 import TextField from "./components/TextField"
 import employees from "./employees.json"
+import { Button, Card, Col } from 'react-materialize';
 
 class App extends Component {
   state = {
@@ -19,7 +20,14 @@ class App extends Component {
         <Navbar />
         <Wrapper>
           <Row>
-            <TextField />
+            <TextField>
+              <Button
+                node="button"
+                type="submit"
+                waves="light"
+              >
+                Search</Button>
+            </TextField>
           </Row>
           <Row>
             <TableHead>
