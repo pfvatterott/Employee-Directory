@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import Navbar from "./components/Navbar";
 import TableHead from "./components/TableHead";
 import Table from "./components/Table";
 import Wrapper from "./components/Wrapper";
-import Row from "./components/Row";
-import TextField from "./components/TextField"
 import employees from "./employees.json"
-import { Button, Card, Col } from 'react-materialize';
+import { Button, Col, Navbar, Icon, TextInput, Row } from 'react-materialize';
 
 class App extends Component {
   state = {
@@ -17,19 +14,50 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar
+          alignLinks="left"
+          brand={<a className="brand-logo" href="#">Employee Directory</a>}
+          centerLogo
+          id="mobile-nav"
+          menuIcon={<Icon></Icon>}
+          fixed="true"
+          options={{
+            draggable: true,
+            edge: 'left',
+            inDuration: 250,
+            onCloseEnd: null,
+            onCloseStart: null,
+            onOpenEnd: null,
+            onOpenStart: null,
+            outDuration: 200,
+            preventScrolling: true
+          }}
+        >
+        </Navbar>
         <Wrapper>
-          <Row>
-            <TextField>
-              <Button
-                node="button"
-                type="submit"
-                waves="light"
-              >
-                Search</Button>
-            </TextField>
+          <Row
+            className="container"  
+          >
+            <TextInput
+            id="TextInput-4"
+            placeholder="First Name"
+            s={6}
+            />
+            <TextInput
+            id="TextInput-4"
+            placeholder="Last Name"
+            s={6}
+            />
           </Row>
-          <Row>
+          <Row
+            className="container"  
+          >
+            <Button
+            >Search</Button>
+          </Row>
+          <Row
+            className="container"  
+          >
             <TableHead>
             {this.state.employees.results.map(emp => (
               <Table
