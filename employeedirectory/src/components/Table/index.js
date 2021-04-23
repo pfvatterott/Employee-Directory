@@ -7,6 +7,7 @@ function Table(props) {
             <td>{props.firstName}</td>
             <td>{props.lastName}</td>
             <td>{props.gender}</td>
+            <td>{props.age}</td>
             <td>{props.email}</td>
           </tr>
         </tbody>

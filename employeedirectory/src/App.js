@@ -3,7 +3,8 @@ import TableHead from "./components/TableHead";
 import Table from "./components/Table";
 import Wrapper from "./components/Wrapper";
 import employees from "./employees.json"
-import { Button, Col, Navbar, Icon, TextInput, Row } from 'react-materialize';
+import 'material-icons/iconfont/material-icons.css'
+import { Button, Col, Navbar, Icon, TextInput, Row, Pagination } from 'react-materialize';
 
 class App extends Component {
   state = {
@@ -59,12 +60,13 @@ class App extends Component {
             className="container"  
           >
             <TableHead>
-            {this.state.employees.results.map(emp => (
+            {this.state.employees.results.slice(0,10).map(emp => (
               <Table
               firstName={emp.name.first}
               lastName={emp.name.last}
               gender={emp.gender}
-              email={emp.email}
+              age={emp.dob.age}
+              email={emp.email.trim()}
               />
             ))}
             </TableHead>

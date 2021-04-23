@@ -9,6 +9,7 @@ function TableHead(props) {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Gender</th>
+              <th>Age</th>
               <th>Email</th>
           </tr>
         </thead>
