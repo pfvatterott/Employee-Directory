@@ -8,7 +8,31 @@ import { Button, Col, Navbar, Icon, TextInput, Row, Pagination } from 'react-mat
 
 class App extends Component {
   state = {
-    employees
+    employees: employees.results,
+    search: "",
+  };
+
+  handleFormSubmit = e => {
+    let foundResults = [];
+    console.log(this.state.search)
+    console.log(this.state.employees.results)
+    for (let i = 0; i < this.state.employees.length; i++) {
+      if (this.state.search === this.state.employees[i].name.first) {
+        foundResults.push(this.state.employees[i])
+      }
+    }
+    this.setState({
+      employees: foundResults
+    })
+  }
+
+
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    this.setState({
+      search: value
+    });
   };
 
   
@@ -40,27 +64,29 @@ class App extends Component {
             className="container"  
           >
             <TextInput
-            id="TextInput-4"
-            placeholder="First Name"
-            s={6}
+              placeholder="Search for Name"
+              s={6}
+              onChange={this.handleInputChange}
             />
-            <TextInput
-            id="TextInput-4"
-            placeholder="Last Name"
-            s={6}
-            />
-          </Row>
+            <Button
+                node="button"
+                style={{
+                  marginRight: '5px'
+                }}
+                waves="light"
+                onClick={this.handleFormSubmit}
+              >Search
+            </Button>
+            </Row>
           <Row
             className="container"  
           >
-            <Button
-            >Search</Button>
           </Row>
           <Row
             className="container"  
           >
             <TableHead>
-            {this.state.employees.results.slice(0,10).map(emp => (
+            {this.state.employees.slice(0,10).map(emp => (
               <Table
               firstName={emp.name.first}
               lastName={emp.name.last}
@@ -71,6 +97,7 @@ class App extends Component {
             ))}
             </TableHead>
           </Row>
+          
         </Wrapper>
       </div>
     )
