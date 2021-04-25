@@ -15,7 +15,7 @@ class App extends Component {
   handleFormSubmit = e => {
     let foundResults = [];
     for (let i = 0; i < employees.results.length; i++) {
-      if ((this.state.search === employees.results[i].name.first.toLowerCase()) || (this.state.search === employees.results[i].name.last.toLowerCase())) {
+      if ((this.state.search === employees.results[i].name.first.toLowerCase()) || (this.state.search === employees.results[i].name.last.toLowerCase()) || (this.state.search == employees.results[i].dob.age) || (this.state.search === employees.results[i].gender.toLowerCase())) {
         foundResults.push(employees.results[i])
       }
     } 
@@ -62,7 +62,7 @@ class App extends Component {
             className="container"  
           >
             <TextInput
-              placeholder="Search for Name"
+              placeholder="Search for First, Last, Gender, or Age"
               s={6}
               onChange={this.handleInputChange}
             />
