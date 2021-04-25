@@ -4,7 +4,7 @@ import { Button, Icon, Modal} from 'react-materialize';
 
 function Table(props) {
     return (  
-        <tbody>
+        <tbody class="align-center">
           <tr>
             <td>{props.firstName}</td>
             <td>{props.lastName}</td>

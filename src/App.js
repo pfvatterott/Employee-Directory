@@ -33,7 +33,7 @@ class App extends Component {
     } 
     this.setState({
       employeeList: foundResults,
-      activeList: this.state.employeeList.slice(0,10)
+      activeList: foundResults.slice(0,10)
     })
   }
 
@@ -51,7 +51,8 @@ class App extends Component {
       .then(res => {
         console.log(res.data.results)
         this.setState({
-          employeeList: res.data.results
+          employeeList: res.data.results,
+          activeList: res.data.results.slice(0,10)
         })
       }).catch(err => console.log(err))
   }
@@ -73,7 +74,6 @@ class App extends Component {
       this.setState({
         employeeList: this.state.employeeList.sort((a, b) => a.name.last.localeCompare(b.name.last)),
         activeList: this.state.employeeList.slice(0,10)
-
       })
     }
     else if (e.target.value === "4") {
@@ -121,31 +121,12 @@ class App extends Component {
             className="container"  
           >
             <TextInput
+              icon="search"
               placeholder="Search for First, Last, Gender, or Age"
               s={6}
               onChange={this.handleInputChange}
             />
-            <Button
-                node="button"
-                style={{
-                  marginRight: '5px'
-                }}
-                waves="light"
-                onClick={this.handleFormSubmit}
-              >Search
-            </Button>
-            <Button
-                node="button1"
-                style={{
-                  marginRight: '5px'
-                }}
-                waves="light"
-                onClick={this.resetList}
-              >Reset
-            </Button>
-          </Row>
-          <Row className="container">
-          <Select value="" onChange={this.sortBy}>
+            <Select value="" onChange={this.sortBy}>
             <option disabled value="">
               Sort By:
             </option>
@@ -164,9 +145,29 @@ class App extends Component {
           </Select>
           </Row>
 
-          <Row
-            className="container"  
-          >
+          <Row className="container">
+            <Button
+              node="button"
+              style={{
+                marginRight: '5px'
+              }}
+              waves="light"
+              onClick={this.handleFormSubmit}
+            >Search
+            </Button>
+          </Row>
+        
+
+          <Row className="container">
+            <Button
+              node="button1"
+              style={{
+                marginRight: '5px'
+              }}
+              waves="light"
+              onClick={this.resetList}
+            >Reset
+            </Button>
           </Row>
           <Row className="container">
             <TableHead>
@@ -188,6 +189,7 @@ class App extends Component {
 
           <Row className="container">
           <Pagination
+            className="center-align"
             activePage={1}
             items={10}
             leftBtn={<Icon>chevron_left</Icon>}

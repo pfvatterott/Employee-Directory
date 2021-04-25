@@ -3,7 +3,7 @@ import React from "react";
 
 function TableHead(props) {
     return (
-        <table class="highlight">
+        <table class="highlight align-center">
         <thead>
           <tr>
               <th>First Name</th>
