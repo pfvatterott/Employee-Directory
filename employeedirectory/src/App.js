@@ -4,7 +4,7 @@ import Table from "./components/Table";
 import Wrapper from "./components/Wrapper";
 import 'material-icons/iconfont/material-icons.css';
 import API from "./utils/API";
-import { Button, Col, Navbar, Icon, TextInput, Row, Pagination } from 'react-materialize';
+import { Button, Navbar, Icon, TextInput, Row, Select } from 'react-materialize';
 
 class App extends Component {
   state = {
@@ -51,6 +51,19 @@ class App extends Component {
           employeeList: res.data.results
         })
       }).catch(err => console.log(err))
+  }
+
+  sortBy= (e) => {
+    if (e.target.value === "1") {
+      this.setState({
+        employeeList: this.state.employeeList.sort((a, b) => a.name.first.localeCompare(b.name.first))
+      })
+    }
+    else if (e.target.value === "2") {
+      this.setState({
+        employeeList: this.state.employeeList.sort((a, b) => a.name.last.localeCompare(b.name.last))
+      })
+    }
   }
 
   
@@ -104,7 +117,21 @@ class App extends Component {
                 onClick={this.resetList}
               >Reset
             </Button>
-            </Row>
+          </Row>
+          <Row className="container">
+          <Select value="" onChange={this.sortBy}>
+            <option disabled value="">
+              Sort By:
+            </option>
+            <option value="1">
+              First Name
+            </option>
+            <option value="2">
+              Last Name
+            </option>
+          </Select>
+          </Row>
+
           <Row
             className="container"  
           >
