@@ -2,21 +2,31 @@ import React, { Component } from "react";
 import TableHead from "./components/TableHead";
 import Table from "./components/Table";
 import Wrapper from "./components/Wrapper";
-import employees from "./employees.json"
-import 'material-icons/iconfont/material-icons.css'
+import 'material-icons/iconfont/material-icons.css';
+import API from "./utils/API";
 import { Button, Col, Navbar, Icon, TextInput, Row, Pagination } from 'react-materialize';
 
 class App extends Component {
   state = {
-    employeeList: employees.results,
+    employeeList: "",
     search: "",
   };
 
+  componentDidMount = () => {
+    API.getEmployeeList()
+      .then(res => {
+        
+        this.setState({
+          employeeList: res.data.results
+        })
+      }).catch(err => console.log(err))
+  }
+
   handleFormSubmit = e => {
     let foundResults = [];
-    for (let i = 0; i < employees.results.length; i++) {
-      if ((this.state.search === employees.results[i].name.first.toLowerCase()) || (this.state.search === employees.results[i].name.last.toLowerCase()) || (this.state.search == employees.results[i].dob.age) || (this.state.search === employees.results[i].gender.toLowerCase())) {
-        foundResults.push(employees.results[i])
+    for (let i = 0; i < this.state.employeeList.length; i++) {
+      if ((this.state.search === this.state.employeeList[i].name.first.toLowerCase()) || (this.state.search === this.state.employeeList[i].name.last.toLowerCase()) || (this.state.search == this.state.employeeList[i].dob.age) || (this.state.search === this.state.employeeList[i].gender.toLowerCase())) {
+        foundResults.push(this.state.employeeList[i])
       }
     } 
     this.setState({
@@ -33,10 +43,14 @@ class App extends Component {
     });
   };
 
-  resetList = event => {
-    this.setState({
-      employeeList: employees.results
-    })
+  resetList = () => {
+    API.getEmployeeList()
+      .then(res => {
+        console.log(res.data.results)
+        this.setState({
+          employeeList: res.data.results
+        })
+      }).catch(err => console.log(err))
   }
 
   
@@ -99,7 +113,7 @@ class App extends Component {
             className="container"  
           >
             <TableHead>
-            {this.state.employeeList.slice(0,10).map(emp => (
+            {this.state.employeeList ? this.state.employeeList.slice(0,10).map(emp => (
               <Table
               firstName={emp.name.first}
               lastName={emp.name.last}
@@ -111,7 +125,7 @@ class App extends Component {
               country={emp.location.country}
               cell={emp.cell}
               />
-            ))}
+            )): null}
             </TableHead>
           </Row>
           
