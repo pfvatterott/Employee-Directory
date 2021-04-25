@@ -8,28 +8,26 @@ import { Button, Col, Navbar, Icon, TextInput, Row, Pagination } from 'react-mat
 
 class App extends Component {
   state = {
-    employees: employees.results,
+    employeeList: employees.results,
     search: "",
   };
 
   handleFormSubmit = e => {
     let foundResults = [];
-    console.log(this.state.search)
-    console.log(this.state.employees.results)
-    for (let i = 0; i < this.state.employees.length; i++) {
-      if (this.state.search === this.state.employees[i].name.first) {
-        foundResults.push(this.state.employees[i])
+    for (let i = 0; i < employees.results.length; i++) {
+      if ((this.state.search === employees.results[i].name.first.toLowerCase()) || (this.state.search === employees.results[i].name.last.toLowerCase())) {
+        foundResults.push(employees.results[i])
       }
-    }
+    } 
     this.setState({
-      employees: foundResults
+      employeeList: foundResults
     })
   }
 
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
+    let value = event.target.value.toLowerCase() ;
     this.setState({
       search: value
     });
@@ -86,7 +84,7 @@ class App extends Component {
             className="container"  
           >
             <TableHead>
-            {this.state.employees.slice(0,10).map(emp => (
+            {this.state.employeeList.slice(0,10).map(emp => (
               <Table
               firstName={emp.name.first}
               lastName={emp.name.last}
