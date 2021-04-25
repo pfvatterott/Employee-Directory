@@ -33,6 +33,12 @@ class App extends Component {
     });
   };
 
+  resetList = event => {
+    this.setState({
+      employeeList: employees.results
+    })
+  }
+
   
   render() {
     return (
@@ -74,6 +80,15 @@ class App extends Component {
                 waves="light"
                 onClick={this.handleFormSubmit}
               >Search
+            </Button>
+            <Button
+                node="button1"
+                style={{
+                  marginRight: '5px'
+                }}
+                waves="light"
+                onClick={this.resetList}
+              >Reset
             </Button>
             </Row>
           <Row
