@@ -4,12 +4,13 @@ import Table from "./components/Table";
 import Wrapper from "./components/Wrapper";
 import 'material-icons/iconfont/material-icons.css';
 import API from "./utils/API";
-import { Button, Navbar, Icon, TextInput, Row, Select } from 'react-materialize';
+import { Button, Navbar, Icon, TextInput, Row, Select, Pagination} from 'react-materialize';
 
 class App extends Component {
   state = {
     employeeList: "",
     search: "",
+    activeList: ""
   };
 
   componentDidMount = () => {
@@ -17,7 +18,8 @@ class App extends Component {
       .then(res => {
         
         this.setState({
-          employeeList: res.data.results
+          employeeList: res.data.results,
+          activeList: res.data.results.slice(0,10)
         })
       }).catch(err => console.log(err))
   }
@@ -30,7 +32,8 @@ class App extends Component {
       }
     } 
     this.setState({
-      employeeList: foundResults
+      employeeList: foundResults,
+      activeList: this.state.employeeList.slice(0,10)
     })
   }
 
@@ -56,24 +59,37 @@ class App extends Component {
   sortBy= (e) => {
     if (e.target.value === "1") {
       this.setState({
-        employeeList: this.state.employeeList.sort((a, b) => a.name.first.localeCompare(b.name.first))
+        employeeList: this.state.employeeList.sort((a, b) => a.name.first.localeCompare(b.name.first)),
+        activeList: this.state.employeeList.slice(0,10)
       })
     }
     else if (e.target.value === "2") {
       this.setState({
-        employeeList: this.state.employeeList.sort((b, a) => a.name.first.localeCompare(b.name.first))
+        employeeList: this.state.employeeList.sort((b, a) => a.name.first.localeCompare(b.name.first)),
+        activeList: this.state.employeeList.slice(0,10)
       })
     }
     else if (e.target.value === "3") {
       this.setState({
-        employeeList: this.state.employeeList.sort((a, b) => a.name.last.localeCompare(b.name.last))
+        employeeList: this.state.employeeList.sort((a, b) => a.name.last.localeCompare(b.name.last)),
+        activeList: this.state.employeeList.slice(0,10)
+
       })
     }
     else if (e.target.value === "4") {
       this.setState({
-        employeeList: this.state.employeeList.sort((b, a) => a.name.last.localeCompare(b.name.last))
+        employeeList: this.state.employeeList.sort((b, a) => a.name.last.localeCompare(b.name.last)),
+        activeList: this.state.employeeList.slice(0,10)
       })
     }
+  }
+
+  changePagination = (e) => {
+    console.log(e)
+    this.setState({
+      activeList: this.state.employeeList.slice((e * 10) - 10, (e * 10))
+    })
+
   }
 
   
@@ -152,11 +168,9 @@ class App extends Component {
             className="container"  
           >
           </Row>
-          <Row
-            className="container"  
-          >
+          <Row className="container">
             <TableHead>
-            {this.state.employeeList ? this.state.employeeList.slice(0,10).map(emp => (
+            {this.state.activeList ? this.state.activeList.map(emp => (
               <Table
               firstName={emp.name.first}
               lastName={emp.name.last}
@@ -170,6 +184,17 @@ class App extends Component {
               />
             )): null}
             </TableHead>
+          </Row>
+
+          <Row className="container">
+          <Pagination
+            activePage={1}
+            items={10}
+            leftBtn={<Icon>chevron_left</Icon>}
+            maxButtons={this.state.employeeList.length / 10}
+            rightBtn={<Icon>chevron_right</Icon>}
+            onSelect={this.changePagination}
+          />
           </Row>
           
         </Wrapper>
