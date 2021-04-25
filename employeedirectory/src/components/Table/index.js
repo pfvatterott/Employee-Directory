@@ -17,7 +17,6 @@ function Table(props) {
               ]}
               bottomSheet={false}
               fixedFooter={false}
-              header="Modal Header"
               id="Modal-0"
               open={false}
               options={{
@@ -41,7 +40,13 @@ function Table(props) {
                         waves="light"
                       ></Button>}
             >
-              <img class="circle" src={props.picture}></img>
+              <div class="center-align">
+                <h2 class="center-align">{props.firstName + " " + props.lastName}</h2>
+                <img class="circle center-align" src={props.picture}></img>
+                <p><strong>Location:</strong> {props.city}, {props.country}</p>
+                <p><strong>Cellphone:</strong> {props.cell}</p>
+                <p><strong>Email:</strong> {props.email}</p>
+              </div>
             </Modal></td>
           </tr>
         </tbody>

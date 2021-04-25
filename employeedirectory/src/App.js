@@ -94,6 +94,9 @@ class App extends Component {
               age={emp.dob.age}
               email={emp.email.trim()}
               picture={emp.picture.large}
+              city={emp.location.city}
+              country={emp.location.country}
+              cell={emp.cell}
               />
             ))}
             </TableHead>
