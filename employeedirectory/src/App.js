@@ -61,7 +61,17 @@ class App extends Component {
     }
     else if (e.target.value === "2") {
       this.setState({
+        employeeList: this.state.employeeList.sort((b, a) => a.name.first.localeCompare(b.name.first))
+      })
+    }
+    else if (e.target.value === "3") {
+      this.setState({
         employeeList: this.state.employeeList.sort((a, b) => a.name.last.localeCompare(b.name.last))
+      })
+    }
+    else if (e.target.value === "4") {
+      this.setState({
+        employeeList: this.state.employeeList.sort((b, a) => a.name.last.localeCompare(b.name.last))
       })
     }
   }
@@ -124,10 +134,16 @@ class App extends Component {
               Sort By:
             </option>
             <option value="1">
-              First Name
+              First Name A - Z
             </option>
             <option value="2">
-              Last Name
+              First Name Z - A
+            </option>
+            <option value="3">
+              Last Name A - Z
+            </option>
+            <option value="4">
+              Last Name Z - A
             </option>
           </Select>
           </Row>
