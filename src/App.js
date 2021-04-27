@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import TableHead from "./components/TableHead";
 import Table from "./components/Table";
 import Wrapper from "./components/Wrapper";
+import NavbarCustom from "./components/Navbar"
 import 'material-icons/iconfont/material-icons.css';
 import API from "./utils/API";
-import { Button, Navbar, Icon, TextInput, Row, Select, Pagination} from 'react-materialize';
+import { Button, Icon, TextInput, Row, Select, Pagination, Col} from 'react-materialize';
 
 class App extends Component {
   state = {
@@ -36,7 +37,6 @@ class App extends Component {
       activeList: foundResults.slice(0,10)
     })
   }
-
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
@@ -96,55 +96,37 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar
-          alignLinks="left"
-          brand={<a className="brand-logo" href="#">Employee Directory</a>}
-          centerLogo
-          id="mobile-nav"
-          menuIcon={<Icon></Icon>}
-          fixed="true"
-          options={{
-            draggable: true,
-            edge: 'left',
-            inDuration: 250,
-            onCloseEnd: null,
-            onCloseStart: null,
-            onOpenEnd: null,
-            onOpenStart: null,
-            outDuration: 200,
-            preventScrolling: true
-          }}
-        >
-        </Navbar>
+        <NavbarCustom />
         <Wrapper>
-          <Row
-            className="container"  
-          >
-            <TextInput
-              icon="search"
-              placeholder="Search for First, Last, Gender, or Age"
-              s={6}
-              onChange={this.handleInputChange}
-            />
-            <Select value="" onChange={this.sortBy}>
-            <option disabled value="">
-              Sort By:
-            </option>
-            <option value="1">
-              First Name A - Z
-            </option>
-            <option value="2">
-              First Name Z - A
-            </option>
-            <option value="3">
-              Last Name A - Z
-            </option>
-            <option value="4">
-              Last Name Z - A
-            </option>
-          </Select>
+          <Row className="container">
+            <Col s={8}>
+              <TextInput
+                icon="search"
+                placeholder="Search for First, Last, Gender, or Age"
+                onChange={this.handleInputChange}
+                s={12}
+              />
+            </Col>
+            <Col s={4}>
+              <Select value="" onChange={this.sortBy} s={12}>
+                <option disabled value="">
+                  Sort By:
+                </option>
+                <option value="1">
+                  First Name A - Z
+                </option>
+                <option value="2">
+                  First Name Z - A
+                </option>
+                <option value="3">
+                  Last Name A - Z
+                </option>
+                <option value="4">
+                  Last Name Z - A
+                </option>
+              </Select>
+            </Col>
           </Row>
-
           <Row className="container">
             <Button
               node="button"
@@ -155,10 +137,6 @@ class App extends Component {
               onClick={this.handleFormSubmit}
             >Search
             </Button>
-          </Row>
-        
-
-          <Row className="container">
             <Button
               node="button1"
               style={{
@@ -186,19 +164,17 @@ class App extends Component {
             )): null}
             </TableHead>
           </Row>
-
           <Row className="container">
-          <Pagination
-            className="center-align"
-            activePage={1}
-            items={10}
-            leftBtn={<Icon>chevron_left</Icon>}
-            maxButtons={this.state.employeeList.length / 10}
-            rightBtn={<Icon>chevron_right</Icon>}
-            onSelect={this.changePagination}
-          />
+            <Pagination
+              className="center-align"
+              activePage={1}
+              items={10}
+              leftBtn={<Icon>chevron_left</Icon>}
+              maxButtons={this.state.employeeList.length / 10}
+              rightBtn={<Icon>chevron_right</Icon>}
+              onSelect={this.changePagination}
+            />
           </Row>
-          
         </Wrapper>
       </div>
     )
