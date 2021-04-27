@@ -18,7 +18,6 @@ class App extends Component {
   componentDidMount = () => {
     API.getEmployeeList()
       .then(res => {
-        
         this.setState({
           employeeList: res.data.results,
           activeList: res.data.results.slice(0,10)
