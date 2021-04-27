@@ -11,7 +11,8 @@ class App extends Component {
   state = {
     employeeList: "",
     search: "",
-    activeList: ""
+    activeList: "",
+    activePagination: 1
   };
 
   componentDidMount = () => {
@@ -34,7 +35,9 @@ class App extends Component {
     } 
     this.setState({
       employeeList: foundResults,
-      activeList: foundResults.slice(0,10)
+      activeList: foundResults.slice(0,10),
+      activePagination: 1
+
     })
   }
 
@@ -52,7 +55,8 @@ class App extends Component {
         console.log(res.data.results)
         this.setState({
           employeeList: res.data.results,
-          activeList: res.data.results.slice(0,10)
+          activeList: res.data.results.slice(0,10),
+          activePagination: 1
         })
       }).catch(err => console.log(err))
   }
@@ -61,25 +65,29 @@ class App extends Component {
     if (e.target.value === "1") {
       this.setState({
         employeeList: this.state.employeeList.sort((a, b) => a.name.first.localeCompare(b.name.first)),
-        activeList: this.state.employeeList.slice(0,10)
+        activeList: this.state.employeeList.slice(0,10),
+        activePagination: 1
       })
     }
     else if (e.target.value === "2") {
       this.setState({
         employeeList: this.state.employeeList.sort((b, a) => a.name.first.localeCompare(b.name.first)),
-        activeList: this.state.employeeList.slice(0,10)
+        activeList: this.state.employeeList.slice(0,10),
+        activePagination: 1
       })
     }
     else if (e.target.value === "3") {
       this.setState({
         employeeList: this.state.employeeList.sort((a, b) => a.name.last.localeCompare(b.name.last)),
-        activeList: this.state.employeeList.slice(0,10)
+        activeList: this.state.employeeList.slice(0,10),
+        activePagination: 1
       })
     }
     else if (e.target.value === "4") {
       this.setState({
         employeeList: this.state.employeeList.sort((b, a) => a.name.last.localeCompare(b.name.last)),
-        activeList: this.state.employeeList.slice(0,10)
+        activeList: this.state.employeeList.slice(0,10),
+        activePagination: 1
       })
     }
   }
@@ -87,6 +95,7 @@ class App extends Component {
   changePagination = (e) => {
     console.log(e)
     this.setState({
+      activePagination: e,
       activeList: this.state.employeeList.slice((e * 10) - 10, (e * 10))
     })
 
@@ -167,10 +176,10 @@ class App extends Component {
           <Row className="container">
             <Pagination
               className="center-align"
-              activePage={1}
-              items={10}
+              activePage={this.state.activePagination}
+              items={Math.floor(this.state.employeeList.length) / 10}
               leftBtn={<Icon>chevron_left</Icon>}
-              maxButtons={this.state.employeeList.length / 10}
+              maxButtons={Math.floor(this.state.employeeList.length) / 10}
               rightBtn={<Icon>chevron_right</Icon>}
               onSelect={this.changePagination}
             />
