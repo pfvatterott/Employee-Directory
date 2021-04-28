@@ -107,7 +107,7 @@ class App extends Component {
         <NavbarCustom />
         <Wrapper>
           <Row className="container">
-            <Col s={8}>
+            <Col s={7}>
               <TextInput
                 icon="search"
                 placeholder="Search for First, Last, Gender, or Age"
@@ -115,7 +115,7 @@ class App extends Component {
                 s={12}
               />
             </Col>
-            <Col s={4}>
+            <Col s={5}>
               <Select value="" onChange={this.sortBy} s={12}>
                 <option disabled value="">
                   Sort By:
@@ -156,32 +156,36 @@ class App extends Component {
             </Button>
           </Row>
           <Row className="container">
-            <TableHead>
-            {this.state.activeList ? this.state.activeList.map(emp => (
-              <Table
-              firstName={emp.name.first}
-              lastName={emp.name.last}
-              gender={emp.gender}
-              age={emp.dob.age}
-              email={emp.email.trim()}
-              picture={emp.picture.large}
-              city={emp.location.city}
-              country={emp.location.country}
-              cell={emp.cell}
-              />
-            )): null}
-            </TableHead>
+            <Col s={12}>
+              <TableHead>
+              {this.state.activeList ? this.state.activeList.map(emp => (
+                <Table
+                firstName={emp.name.first}
+                lastName={emp.name.last}
+                gender={emp.gender}
+                age={emp.dob.age}
+                email={emp.email.trim()}
+                picture={emp.picture.large}
+                city={emp.location.city}
+                country={emp.location.country}
+                cell={emp.cell}
+                />
+              )): null}
+              </TableHead>
+            </Col>
           </Row>
           <Row className="container">
-            <Pagination
-              className="center-align"
-              activePage={this.state.activePagination}
-              items={Math.floor(this.state.employeeList.length) / 10}
-              leftBtn={<Icon>chevron_left</Icon>}
-              maxButtons={Math.floor(this.state.employeeList.length) / 10}
-              rightBtn={<Icon>chevron_right</Icon>}
-              onSelect={this.changePagination}
-            />
+            <Col s={12} className="center-align">
+              <Pagination
+                className="center-align"
+                activePage={this.state.activePagination}
+                items={Math.floor(this.state.employeeList.length) / 10}
+                leftBtn={<Icon>chevron_left</Icon>}
+                maxButtons={5}
+                rightBtn={<Icon>chevron_right</Icon>}
+                onSelect={this.changePagination}
+              />
+            </Col>
           </Row>
         </Wrapper>
       </div>
